@@ -1,0 +1,17 @@
+- build a web-based software that compiles text-based diagram specifications into three synchronized nonvisual formats—tabular,
+navigable, and tactile.
+our evaluation with BVI users highlights the strength of tactile graphics for complex tasks such as binary search; the benefits of offering multiple, complementary nonvisual representations; and limitations of existing digital navigation patterns for structural reasoning.
+
+-follow WCAG 2.1 AA guidelines
+
+Tactile Rhythm Project
+Goal - automatically generate tactile graphics of drum sequences.
+Needs to include braille, tactile graphic considerations like line thickness, etc.
+Resources
+Tactile Sequences (Attached) - PDF example of how I'd create tactile graphics
+SynthAccess NIME paper
+Braille Translator - examples of generating contracted/uncontracted braille.
+Example of generating tactile/digital data structures (CHI 2026).
+Pocket Operations - book of rhythms
+
+-text spec → parser → semantic IR → tabular view + navigable view + tactile SVG/PDF/BRF output
