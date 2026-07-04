@@ -7,3 +7,6 @@ class Rhythm:
     title: str
     time_signature: str
     instruments: dict[str, list[str]]
+    # Store the number of positions in the rhythm.
+    # Example: 8 for an eight-position rhythm.
+    positions: int

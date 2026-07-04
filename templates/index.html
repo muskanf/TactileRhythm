@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tactile Rhythm</title>
+</head>
+<body>
+  <h1>Tactile Rhythm</h1>
+
+  <p>If you can see this, Flask and the template are working.</p>
+
+  <form action="/compile" method="post">
+    <label for="rhythm_text">Rhythm specification</label>
+
+    <textarea id="rhythm_text" name="rhythm_text" rows="12" cols="80">{{ example_text }}</textarea>
+
+    <br>
+
+    <button type="submit">Compile rhythm</button>
+  </form>
+</body>
+</html>
