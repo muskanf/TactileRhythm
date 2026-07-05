@@ -1,10 +1,11 @@
-#This file turns user text into a rhythm object.# Import the Rhythm data model.
+#This file turns user text into a rhythm object.
+# Import the Rhythm data model.
 from tactile_rhythm.models import Rhythm
 # Define the main parser function.
 def parse_rhythm(text: str) -> Rhythm:
     # Check whether the user entered empty text.
     if not text.strip():
-        # Raise a helpful error if the input is empty.
+        # Raise error if the input is empty.
         raise ValueError("Please enter a rhythm specification.")
 
     # Split the input text into individual lines.
@@ -41,7 +42,6 @@ def parse_rhythm(text: str) -> Rhythm:
         if key == "title":
             # Store the title.
             title = value
-
             # Move to the next line.
             continue
 

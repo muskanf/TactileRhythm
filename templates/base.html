@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}Tactile Rhythm{% endblock %}</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="site-logo" href="{{ url_for('index') }}">Tactile Rhythm</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="{{ url_for('index') }}">Compiler</a>
+      <a href="{{ url_for('index') }}#syntax">Syntax</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      I will put the footer stuff in the footer later.
+    </p>
+  </footer>
+</body>
+</html>

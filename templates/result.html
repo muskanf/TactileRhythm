@@ -1,119 +1,129 @@
-<!doctype html>
-<!-- This file displays the compiled rhythm outputs. -->
-<html lang="en">
-<head>
-  <!-- Set the character encoding for the page. -->
-  <meta charset="utf-8">
+{% extends "base.html" %}
 
-  <!-- Make the page responsive on phones and small screens. -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block title %}Compiled Rhythm - Tactile Rhythm{% endblock %}
 
-  <!-- Set the page title shown in the browser tab. -->
-  <title>Compiled Rhythm - Tactile Rhythm</title>
+{% block content %}
+<section class="hero compact-hero" aria-labelledby="page-title">
+  <p class="eyebrow">Compiled output</p>
 
-  <!-- Link to the CSS file in the static folder. -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+  <h1 id="page-title">Compiled Rhythm</h1>
 
-<body>
-  <!-- Main landmark helps screen reader users jump to the main content. -->
-  <main>
-    <!-- Main page heading. -->
-    <h1>Compiled Rhythm</h1>
+  <p class="hero-text">
+    Your rhythm has been converted into a tactile representations!
+  </p>
+</section>
 
-    <!-- Show the rhythm title. -->
-    <p><strong>Title:</strong> {{ rhythm.title }}</p>
+<section class="summary-grid" aria-label="Rhythm summary">
+  <article class="summary-card">
+    <span class="summary-label">Title</span>
+    <strong>{{ rhythm.title }}</strong>
+  </article>
 
-    <!-- Show the rhythm time signature. -->
-    <p><strong>Time signature:</strong> {{ rhythm.time_signature }}</p>
+  <article class="summary-card">
+    <span class="summary-label">Time signature</span>
+    <strong>{{ rhythm.time_signature }}</strong>
+  </article>
 
-    <!-- Link back to the input page. -->
-    <p><a href="{{ url_for('index') }}">Compile another rhythm</a></p>
+  <article class="summary-card">
+    <span class="summary-label">Positions</span>
+    <strong>{{ rhythm.positions }}</strong>
+  </article>
 
-    <!-- Section for the table representation. -->
-    <section aria-labelledby="table-heading">
-      <!-- Heading for the table representation. -->
+  <article class="summary-card">
+    <span class="summary-label">Instruments</span>
+    <strong>{{ rhythm.instruments | length }}</strong>
+  </article>
+</section>
+
+<div class="page-actions">
+  <a href="{{ url_for('index') }}" class="secondary-link">Compile another rhythm</a>
+</div>
+
+<section class="panel" aria-labelledby="table-heading">
+  <div class="panel-header">
+    <div>
       <h2 id="table-heading">Table representation</h2>
 
-      <!-- Table caption explains what the table shows. -->
-      <table>
-        <!-- Caption gives screen reader users context. -->
-        <caption>Rhythm pattern by instrument and position</caption>
+      <p class="section-description">
+        This view represents the rhythm as instrument rows and numbered position columns.
+      </p>
+    </div>
+  </div>
 
-        <!-- Table header section. -->
-        <thead>
-          <!-- Header row. -->
+  <div class="table-wrap">
+    <table>
+      <caption>Rhythm pattern by instrument and position</caption>
+
+      <thead>
+        <tr>
+          {% for header in table.headers %}
+            <th scope="col">{{ header }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for row in table.rows %}
           <tr>
-            <!-- Loop through the table headers. -->
-            {% for header in table.headers %}
-              <!-- Display each header as a column header. -->
-              <th scope="col">{{ header }}</th>
+            {% for cell in row %}
+              {% if loop.index0 == 0 %}
+                <th scope="row">{{ cell }}</th>
+              {% else %}
+                <td>{{ cell }}</td>
+              {% endif %}
             {% endfor %}
           </tr>
-        </thead>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
 
-        <!-- Table body section. -->
-        <tbody>
-          <!-- Loop through each table row. -->
-          {% for row in table.rows %}
-            <!-- Start a new row. -->
-            <tr>
-              <!-- Loop through each cell in the row. -->
-              {% for cell in row %}
-                <!-- Use row header for the first cell. -->
-                {% if loop.index0 == 0 %}
-                  <!-- First cell is the instrument name. -->
-                  <th scope="row">{{ cell }}</th>
-                {% else %}
-                  <!-- Other cells are rhythm symbols. -->
-                  <td>{{ cell }}</td>
-                {% endif %}
-              {% endfor %}
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </section>
-
-    <!-- Section for the navigable representation. -->
-    <section aria-labelledby="navigation-heading">
-      <!-- Heading for the navigable representation. -->
+<section class="panel" aria-labelledby="navigation-heading">
+  <div class="panel-header">
+    <div>
       <h2 id="navigation-heading">Navigable representation</h2>
 
-      <!-- Ordered list lets users move position by position. -->
-      <ol>
-        <!-- Loop through each navigation sentence. -->
-        {% for item in navigation %}
-          <!-- Display the sentence as one list item. -->
-          <li>{{ item }}</li>
-        {% endfor %}
-      </ol>
-    </section>
+      <p class="section-description">
+        This view describes the rhythm position by position.
+      </p>
+    </div>
+  </div>
 
-    <!-- Section for the tactile graphic preview. -->
-    <section aria-labelledby="svg-heading">
-      <!-- Heading for the tactile preview. -->
-      <h2 id="svg-heading">Tactile-style SVG preview</h2>
+  <ol class="navigation-list">
+    {% for item in navigation %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ol>
+</section>
 
-      <!-- Explanation of the preview. -->
-      <p>
+<section class="panel" aria-labelledby="svg-heading">
+  <div class="panel-header">
+    <div>
+      <h2 id="svg-heading">Tactile SVG - Still working on download option </h2>
+
+      <p class="section-description">
         Filled circles represent played notes. Small open circles represent rests.
       </p>
+    </div>
+  </div>
 
-      <!-- Insert the generated SVG as safe HTML. -->
-      <div class="svg-container">
-        {{ svg | safe }}
-      </div>
-    </section>
+  <div class="svg-container">
+    {{ svg | safe }}
+  </div>
+</section>
 
-    <!-- Section showing the original input. -->
-    <section aria-labelledby="input-heading">
-      <!-- Heading for the original input. -->
+<section class="panel" aria-labelledby="input-heading">
+  <div class="panel-header">
+    <div>
       <h2 id="input-heading">Original input</h2>
 
-      <!-- Display the submitted rhythm text. -->
-      <pre><code>{{ rhythm_text }}</code></pre>
-    </section>
-  </main>
-</body>
-</html>
+      <p class="section-description">
+        This is the rhythm specification used to generate the outputs above.
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block"><code>{{ rhythm_text }}</code></pre>
+</section>
+{% endblock %}

@@ -1,22 +1,126 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Tactile Rhythm</title>
-</head>
-<body>
-  <h1>Tactile Rhythm</h1>
+{% extends "base.html" %}
 
-  <p>If you can see this, Flask and the template are working.</p>
+{% block title %}Tactile Rhythm Compiler{% endblock %}
 
-  <form action="/compile" method="post">
-    <label for="rhythm_text">Rhythm specification</label>
+{% block content %}
+<section class="hero" aria-labelledby="page-title">
+  <div class="hero-content">
+    <p class="eyebrow">Accessible rhythm compiler</p>
 
-    <textarea id="rhythm_text" name="rhythm_text" rows="12" cols="80">{{ example_text }}</textarea>
+    <h1 id="page-title">Tactile Rhythm</h1>
 
-    <br>
+    <p class="hero-text">
+      Tool to covert text-based drum patterns into three synchronized accessible formats:
+      a table, a navigable text version, and a tactile SVG graphic.
+    </p>
+  </div>
+</section>
 
-    <button type="submit">Compile rhythm</button>
+<section class="panel" aria-labelledby="input-heading">
+  <div class="panel-header">
+    <div>
+      <h2 id="input-heading">Enter rhythm specification</h2>
+
+      <p class="section-description">
+        Use <code>x</code> for a played note and <code>.</code> for a rest.
+      </p>
+    </div>
+  </div>
+
+  {% if error %}
+    <div class="error" role="alert">
+      <strong>Input error:</strong> {{ error }}
+    </div>
+  {% endif %}
+
+  <form action="{{ url_for('compile_rhythm') }}" method="post" class="rhythm-form">
+    <label for="rhythm_text" class="form-label">Rhythm text</label>
+
+    <textarea
+      id="rhythm_text"
+      name="rhythm_text"
+      spellcheck="false"
+      aria-describedby="rhythm-help"
+    >{{ example_text }}</textarea>
+
+    <p id="rhythm-help" class="help-text">
+      Example instruments: <code>HH</code> or <code>hihat</code>,
+      <code>SN</code> or <code>snare</code>,
+      <code>BD</code> or <code>kick</code>.
+    </p>
+
+    <div class="form-actions">
+      <button type="submit" class="primary-button">Compile rhythm</button>
+      <a href="#syntax" class="secondary-link">View syntax guide</a>
+    </div>
   </form>
-</body>
-</html>
+</section>
+
+<section class="grid-two" aria-label="Project overview">
+  <article class="info-card">
+    <h2>What it generates</h2>
+
+    <ul class="feature-list">
+      <li>
+        <strong>Table representation</strong>
+        <span>Rows for instruments and columns for rhythm positions.</span>
+      </li>
+
+      <li>
+        <strong>Navigable representation</strong>
+        <span>A position-by-position text explanation for screen reader users.</span>
+      </li>
+
+      <li>
+        <strong>Tactile SVG preview</strong>
+        <span>A grid-based tactile-style graphic with markers for played notes.</span>
+      </li>
+    </ul>
+  </article>
+
+  <article class="info-card" id="syntax">
+    <h2>Syntax guide</h2>
+
+    <dl class="syntax-list">
+      <div>
+        <dt><code>title:</code></dt>
+        <dd>Names the rhythm.</dd>
+      </div>
+
+      <div>
+        <dt><code>time:</code></dt>
+        <dd>Stores the time signature, such as <code>4/4</code>.</dd>
+      </div>
+
+      <div>
+        <dt><code>x</code></dt>
+        <dd>The instrument plays at this position.</dd>
+      </div>
+
+      <div>
+        <dt><code>.</code></dt>
+        <dd>The instrument rests at this position.</dd>
+      </div>
+    </dl>
+  </article>
+</section>
+
+<section class="panel" aria-labelledby="example-heading">
+  <div class="panel-header">
+    <div>
+      <h2 id="example-heading">Example input</h2>
+
+      <p class="section-description">
+        Paste or edit this pattern in the text area above.
+      </p>
+    </div>
+  </div>
+
+  <pre class="code-block"><code>title: Basic Rock Beat
+time: 4/4
+
+HH: x x x x x x x x
+SN: . . x . . . x .
+BD: x . . . x . . .</code></pre>
+</section>
+{% endblock %}
