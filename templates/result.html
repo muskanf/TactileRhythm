@@ -9,7 +9,7 @@
   <h1 id="page-title">Compiled Rhythm</h1>
 
   <p class="hero-text">
-    Your rhythm has been converted into a tactile representations!
+    Your rhythm has been converted into synchronized table, navigable, and tactile representations.
   </p>
 </section>
 
@@ -100,11 +100,18 @@
 <section class="panel" aria-labelledby="svg-heading">
   <div class="panel-header">
     <div>
-      <h2 id="svg-heading">Tactile SVG - Still working on download option </h2>
+      <h2 id="svg-heading">Tactile SVG</h2>
 
       <p class="section-description">
         Filled circles represent played notes. Small open circles represent rests.
+        Download support is still in progress.
       </p>
+
+      {% if show_braille %}
+        <p class="section-description">
+          Braille labels are enabled for the tactile-style preview.
+        </p>
+      {% endif %}
     </div>
   </div>
 
@@ -112,6 +119,28 @@
     {{ svg | safe }}
   </div>
 </section>
+
+{% if show_braille %}
+<section class="panel" aria-labelledby="braille-heading">
+  <div class="panel-header">
+    <div>
+      <h2 id="braille-heading">Braille legend</h2>
+
+      <p class="section-description">
+        These labels identify the drum rows in the tactile-style preview.
+      </p>
+    </div>
+  </div>
+
+  <ul class="navigation-list">
+    {% for item in braille_legend %}
+      <li>
+        <strong>{{ item.label }}</strong>: {{ item.braille }}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
 
 <section class="panel" aria-labelledby="input-heading">
   <div class="panel-header">

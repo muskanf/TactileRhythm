@@ -1,8 +1,9 @@
 #This file generates the tactile-style SVG graphic
 # Import html so we can safely escape text inside SVG.
 import html
+from tactile_rhythm.braille import get_braille_label
 # Define a function that creates an SVG tactile-style graphic.
-def make_svg(rhythm):
+def make_svg(rhythm, show_braille=False):
     # Set the left margin for instrument labels.
     left_margin = 110
     # Set the top margin for the title and headers.
@@ -70,9 +71,12 @@ def make_svg(rhythm):
         y = top_margin + row_index * row_spacing
 
         # Add the instrument label on the left.
+        visible_label = instrument_name
+        if show_braille:
+            visible_label = f"{instrument_name} {get_braille_label(instrument_name)}"
         svg_parts.append(
             f'<text x="20" y="{y + 5}" font-size="16" font-family="Arial">'
-            f'{html.escape(instrument_name)}</text>'
+            f'{html.escape(visible_label)}</text>'
         )
 
         # Draw a horizontal guide line for the instrument row.

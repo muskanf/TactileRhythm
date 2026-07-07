@@ -10,16 +10,12 @@ def parse_rhythm(text: str) -> Rhythm:
 
     # Split the input text into individual lines.
     raw_lines = text.splitlines()
-
     # Remove blank lines and strip spaces from each line.
     lines = [line.strip() for line in raw_lines if line.strip()]
-
     # Create a default title in case the user does not provide one.
     title = "Untitled Rhythm"
-
     # Create a default time signature in case the user does not provide one.
     time_signature = "4/4"
-
     # Create an empty dictionary for instruments.
     instruments = {}
     # Loop through each cleaned line.

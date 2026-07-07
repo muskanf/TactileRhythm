@@ -10,8 +10,7 @@
     <h1 id="page-title">Tactile Drum Machine Sequence Project</h1>
 
     <p class="hero-text">
-      Tool to covert text-based drum patterns into three synchronized accessible formats:
-      a table, a navigable text version, and a tactile SVG graphic.
+      Tool to covert text drum patterns into accessible formats.
     </p>
   </div>
 </section>
@@ -36,6 +35,11 @@
   <form action="{{ url_for('compile_rhythm') }}" method="post" class="rhythm-form">
     <label for="rhythm_text" class="form-label">Rhythm text</label>
 
+  <div class="checkbox-row">
+    <input type="checkbox" id="show_braille" name="show_braille" value="yes">
+    <label for="show_braille"> Show braille labels in tactile</label>
+  </div>
+
     <textarea
       id="rhythm_text"
       name="rhythm_text"
@@ -58,7 +62,7 @@
 
 <section class="grid-two" aria-label="Project overview">
   <article class="info-card">
-    <h2>What it generates</h2>
+    <h2>What this tool does:</h2>
 
     <ul class="feature-list">
       <li>
@@ -73,7 +77,7 @@
 
       <li>
         <strong>Tactile SVG preview</strong>
-        <span>A grid-based tactile-style graphic with markers for played notes.</span>
+        <span>A tactile graphic with markers for played notes.</span>
       </li>
     </ul>
   </article>
